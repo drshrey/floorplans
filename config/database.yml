@@ -33,10 +33,12 @@ default: &default
 
 development:
   <<: *default
-  database: myapp_development
+  database: fieldwire
+  username: drshrey
+  password: <%= ENV['MYAPP_DATABASE_PASSWORD'] %>
 
 production:
   <<: *default
   database: fieldwire
-  username: fieldwire
+  username: drshrey
   password: <%= ENV['MYAPP_DATABASE_PASSWORD'] %>
