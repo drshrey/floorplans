@@ -39,6 +39,6 @@ development:
 
 production:
   <<: *default
-  database: fieldwire
-  username: drshrey
-  password: <%= ENV['MYAPP_DATABASE_PASSWORD'] %>
+  database: d87uepf3qq0lg
+  username: nqfndvihzkwnlj
+  password: <%= ENV['PROD_MYAPP_DATABASE_PASSWORD'] %>
