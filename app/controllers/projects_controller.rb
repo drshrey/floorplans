@@ -14,7 +14,8 @@ class ProjectsController < ApplicationController
 
   def show
     begin
-      @project = Project.find_by_id params[:id]
+      @project = Project.find_by_id(params[:id])
+      @floorplans = @project.floorplans
     rescue ActiveRecord::RecordNotFound => e
       puts @e
       render json: @e
