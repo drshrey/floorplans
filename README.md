@@ -14,5 +14,8 @@ DB:
 
 - PostgreSQL
 
-Deployed via Heroku: https://damp-fjord-96255.herokuapp.com/. 
+File Storage:
 
+- S3
+
+Deployed via Heroku: https://damp-fjord-96255.herokuapp.com/. 
