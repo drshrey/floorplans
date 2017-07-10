@@ -9,3 +9,7 @@
       React.DOM.b null, @props.floorplan.display_name
       React.DOM.br null
       "last updated " + @props.floorplan.created_at
+      React.DOM.img
+        width: 100
+        height: 100
+        src: @props.floorplan.thumb

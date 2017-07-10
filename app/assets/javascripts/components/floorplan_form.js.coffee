@@ -23,11 +23,13 @@
     @state.blueprint
   handleSubmit: (e) ->
     e.preventDefault()
+    $(".loader").css('visibility', 'visible')
     $.post '/floorplans', { floorplan: @state }, (data) =>
       if "status" in Object.keys(data) && data["status"] == "Updated"
         @props.updateFloorplan data.floorplan
       else
         @props.handleNewFloorplan data
+      $(".loader").css('visibility', 'hidden')
       @setState @getInitialState()
     , 'JSON'
   render: ->

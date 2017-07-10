@@ -28,6 +28,8 @@
       React.DOM.h4
         className: 'title'
         'Floorplans'
+      React.DOM.div
+        className: 'loader'
       React.createElement FloorplanForm, updateFloorplan: @updateFloorplan, handleNewFloorplan: @addFloorplan, project_id: @props.project_id
       for floorplan in @state.floorplans
         React.createElement Floorplan, key: floorplan.id, floorplan: floorplan
