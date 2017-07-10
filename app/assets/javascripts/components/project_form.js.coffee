@@ -17,11 +17,11 @@
       className: 'form-inline'
       onSubmit: @handleSubmit
       React.DOM.div
-        className: 'form-group'
+        className: 'form-group project-form'
         React.DOM.input
           type: 'text'
-          className: 'form-control'
-          placeholder: 'project title'
+          className: 'project-title'
+          placeholder: 'Enter a project title'
           name: 'title'
           value: @state.title
           onChange: @handleValueChange
@@ -29,4 +29,4 @@
           type: 'submit'
           className: 'btn btn-primary'
           disabled: !@valid()
-          'Create Project'
+          'Create'

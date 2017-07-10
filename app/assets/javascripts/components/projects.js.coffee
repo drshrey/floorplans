@@ -15,7 +15,7 @@
         'Projects'
       React.createElement ProjectForm, handleNewProject: @addProject
       React.DOM.table
-        className: 'table table-bordered'
+        className: 'table borderless projects-table'
         React.DOM.thead null
           React.DOM.th null, 'Title'
           React.DOM.th null, 'Created At'

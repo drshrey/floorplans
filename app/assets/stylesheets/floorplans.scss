@@ -1,3 +1,35 @@
 // Place all the styles related to the Floorplans controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.floorplan-row {
+  margin: 10px;
+  border: 1px solid black;
+  border-radius: 4px;
+  padding: 15px;
+  width: 260px;
+  width: 260px;
+  height: 150px;
+  display: inline-block;
+  -webkit-box-shadow: 3px 3px 3px #777;
+   -moz-box-shadow: 3px 3px 3px #777;
+   box-shadow: 3px 3px 3px #777;
+}
+
+.floorplan-row:hover{
+  cursor: pointer;
+  background-color: red;
+}
+
+.floorplan-form {
+  height: 200px;
+  width: 380px;
+  border: 1px solid;
+  margin: 10px;
+  padding: 15px;
+  border-radius: 4px;
+}
+
+.floorplans {
+  margin-top: 25px;
+}
