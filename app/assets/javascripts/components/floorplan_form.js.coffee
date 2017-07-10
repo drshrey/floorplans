@@ -48,7 +48,7 @@
           onChange: @handleValueChange
         React.DOM.input
           type: 'file'
-          accept: 'image/*, pdf'
+          accept: 'image/*, application/pdf'
           className: 'form-control'
           placeholder: 'Blueprint'
           name: 'blueprint'
