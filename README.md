@@ -1,24 +1,18 @@
-# README
+# Floorplans
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+* Run the server locally with `rails s`. Make sure to have Rails 5+ installed.
 
-Things you may want to cover:
+Frontend:
 
-* Ruby version
+1. React.js components are in `app/assets/javascripts/components/` folder.
 
-* System dependencies
+Backend:
 
-* Configuration
+1. `floorplan_controller.rb` and `project_controller.rb` in `app/controllers/` folder.
 
-* Database creation
+DB:
 
-* Database initialization
+- PostgreSQL
 
-* How to run the test suite
+Deployed via Heroku: https://damp-fjord-96255.herokuapp.com/. 
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
