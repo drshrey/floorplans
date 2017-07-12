@@ -9,4 +9,4 @@
         className: 'created-at'
         'Created ' + @props.data.created_at
       React.DOM.hr null
-      React.createElement Floorplans, floorplans: @props.floorplans, project_id: @props.data.id
+      React.createElement Floorplans, floorplans: @props.floorplans, project_id: @props.data.id, versioned_files: @props.versioned_files

@@ -16,6 +16,11 @@ class ProjectsController < ApplicationController
     begin
       @project = Project.find_by_id(params[:id])
       @floorplans = @project.floorplans
+      @versioned_files = {}
+      for floorplan in @floorplans
+        @versioned_files[floorplan.id] = floorplan.versioned_files
+      end
+
     rescue ActiveRecord::RecordNotFound => e
       puts @e
       render json: @e

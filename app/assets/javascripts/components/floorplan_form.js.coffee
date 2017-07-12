@@ -25,10 +25,16 @@
     e.preventDefault()
     $(".loader").css('visibility', 'visible')
     $.post '/floorplans', { floorplan: @state }, (data) =>
+      console.log(data)
       if "status" in Object.keys(data) && data["status"] == "Updated"
-        @props.updateFloorplan data.floorplan
+        @props.updateFloorplanMsg data.floorplan
       else
-        @props.handleNewFloorplan data
+        floorplan = data.floorplan
+        # console.log(data)
+        floorplan.versioned_file = data.versioned_file
+        console.log("FLOORPLAN!")
+        console.log(floorplan)
+        @props.handleNewFloorplan floorplan
       $(".loader").css('visibility', 'hidden')
       @setState @getInitialState()
     , 'JSON'

@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  s3_url: MyText
+  filename: MyText
+  thumb_image_url: MyText
+  large_image_url: MyText
+
+two:
+  s3_url: MyText
+  filename: MyText
+  thumb_image_url: MyText
+  large_image_url: MyText

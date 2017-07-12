@@ -1,14 +1,15 @@
-require 'aws-sdk'
-require 'mini_magick'
-require 'uri'
-
-class FloorplansController < ApplicationController
-  def show
-    @floorplan = Floorplan.find_by_id(params[:id])
-    @versioned_files = @floorplan.versioned_files
+class VersionedFilesController < ApplicationController
+  def destroy
+    puts "delete!"
+    VersionedFile.find(params[:id]).destroy
+    render json: {
+      status: "Deleted!"
+    }
   end
 
   def create
+    puts "create!"
+    puts versioned_file_params
     Aws.config = {
         :region => 'us-east-2'
     }
@@ -16,12 +17,12 @@ class FloorplansController < ApplicationController
     # check if Floorplan obj already exists with
     ## corresponding filename and project_id
     s3 = Aws::S3::Resource.new
-    split_arr = floorplan_params[:blueprint].split(';')
+    split_arr = versioned_file_params[:blueprint].split(';')
     content_type = split_arr[0].split(':')[-1]
-    body = Base64.decode64(floorplan_params[:blueprint].split(',')[1])
+    body = Base64.decode64(versioned_file_params[:blueprint].split(',')[1])
 
     time = Time.now.to_i.to_s
-    filepath = floorplan_params[:filepath].split("\\")[-1]
+    filepath = versioned_file_params[:filename].split("\\")[-1]
 
     s3.bucket('fieldwireapp').object(time + filepath).put(
       body: body, acl: 'public-read', content_type: content_type, content_encoding: 'base64')
@@ -45,8 +46,7 @@ class FloorplansController < ApplicationController
 
     thumb_url = "https://fieldwireapp.s3.amazonaws.com/thumb" + time + filepath
     large_url = "https://fieldwireapp.s3.amazonaws.com/large" + time + filepath
-
-    @existing_floorplan = Floorplan.find_by project_id: floorplan_params[:project_id], filepath: filepath
+    @existing_floorplan = Floorplan.find_by id: versioned_file_params[:floorplan_id]
     if @existing_floorplan != nil
       puts "updating existing file!"
       # create new versioned file
@@ -63,52 +63,22 @@ class FloorplansController < ApplicationController
       if @new_versioned_file.save
         render json: {
           "status" => "Updated",
-          "floorplan" => @existing_floorplan,
           "versioned_file" => @new_versioned_file
         }
       else
         render json: @new_versioned_file.errors, status: :unprocessable_entity
       end
     else
-      params = {
-        "display_name" => floorplan_params[:display_name],
-        "blueprint" => floorplan_params[:blueprint],
-        "project_id" => floorplan_params[:project_id],
-        "filepath" => filepath,
+      render json: {
+        status: "Associated floorplan does not exist"
       }
-
-      @floorplan = Floorplan.new(params)
-
-      if @floorplan.save
-        versioned_file_params = {
-          "filename" => filepath,
-          "s3_url" => s3_url,
-          "thumb_image_url" => thumb_url,
-          "large_image_url" => large_url,
-          "floorplan_id" => @floorplan.id,
-          "version_number": @floorplan.versioned_files.size + 1
-        }
-
-        @versioned_file = VersionedFile.new(versioned_file_params)
-
-        if @versioned_file.save
-          @floorplan.reload
-          render json: {
-              "status": "Added",
-              "floorplan": @floorplan,
-              "versioned_file": @versioned_file
-          }
-        else
-          render json: @versioned_file.errors, status: :unprocessable_entity
-        end
-      else
-        render json: @floorplan.errors, status: :unprocessable_entity
-      end
     end
+
   end
 
   private
-  def floorplan_params
-    params.require(:floorplan).permit(:display_name, :blueprint, :project_id, :filepath)
+  def versioned_file_params
+    params.require(:versioned_file).permit(:filename, :floorplan_id, :blueprint)
   end
+
 end

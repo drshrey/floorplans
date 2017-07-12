@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170710003950) do
+ActiveRecord::Schema.define(version: 20170712213553) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,9 +21,6 @@ ActiveRecord::Schema.define(version: 20170710003950) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "project_id"
-    t.string "thumb"
-    t.string "large"
-    t.string "s3_url"
     t.string "filepath"
     t.index ["project_id"], name: "index_floorplans_on_project_id"
   end
@@ -32,6 +29,18 @@ ActiveRecord::Schema.define(version: 20170710003950) do
     t.text "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "versioned_files", force: :cascade do |t|
+    t.text "s3_url"
+    t.text "filename"
+    t.text "thumb_image_url"
+    t.text "large_image_url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "floorplan_id"
+    t.integer "version_number"
+    t.index ["floorplan_id"], name: "index_versioned_files_on_floorplan_id"
   end
 
 end
